@@ -3,6 +3,7 @@ var sass = require('gulp-sass');
 var plumber = require('gulp-plumber');
 var autoprefixer = require('gulp-autoprefixer');
 var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
 
 
 // static variables
@@ -18,6 +19,7 @@ gulp.task('sass', function(){
       console.log(err);
       this.emit('end');
     }))
+    .pipe(sourcemaps.init())
     .pipe(autoprefixer({
         browsers: ['last 2 versions'],
         cascade: false
@@ -26,5 +28,6 @@ gulp.task('sass', function(){
         outputStyle: 'compressed'
     })) // Converts Sass to Css with gulp sass
     .pipe(concat(minCss))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(distCss));
 });
