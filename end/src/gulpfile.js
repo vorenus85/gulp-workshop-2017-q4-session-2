@@ -9,8 +9,9 @@ var sourcemaps = require('gulp-sourcemaps');
 // static variables
 var srcScss = 'scss/style.scss';
 var distCss = '../web/css';
-var distVendorCss = '../web/css/vendor';
 var minCss = 'style.min.css';
+// vendor static variables
+var distVendorCss = '../web/css/vendor';
 var vendorCss = 'css/vendor/*.css';
 var vendorPacksMin = 'vendor.packs.min.css';
 
