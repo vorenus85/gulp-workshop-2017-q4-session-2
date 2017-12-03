@@ -9,7 +9,10 @@ var sourcemaps = require('gulp-sourcemaps');
 // static variables
 var srcScss = 'scss/style.scss';
 var distCss = '../web/css';
+var distVendorCss = '../web/css/vendor';
 var minCss = 'style.min.css';
+var vendorCss = 'css/vendor/*.css';
+var vendorPacksMin = 'vendor.packs.min.css';
 
 gulp.task('sass', function(){
     console.log('starting sass task');
@@ -30,4 +33,23 @@ gulp.task('sass', function(){
     .pipe(concat(minCss))
     .pipe(sourcemaps.write('./maps'))
     .pipe(gulp.dest(distCss));
+});
+
+gulp.task('vendor-css', function(){
+   return gulp.src(vendorCss)
+   .pipe(plumber(function (err){
+       console.log('Sass task error');
+       console.log(err);
+       this.emit('end');
+   }))
+   .pipe(concat(vendorPacksMin))
+   .pipe(autoprefixer({
+       browsers: ['last 2 versions'],
+       cascade: false
+   }))
+   .pipe(sass({
+       outputStyle: 'compressed'
+   })) // Converts Sass to Css with gulp sass
+   .pipe(gulp.dest(distVendorCss));
+   
 });
