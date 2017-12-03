@@ -19,6 +19,8 @@ gulp.task('sass', function(){
         browsers: ['last 2 versions'],
         cascade: false
     }))
-    .pipe(sass({})) // Converts Sass to Css with gulp sass
+    .pipe(sass({
+        outputStyle: 'compressed'
+    })) // Converts Sass to Css with gulp sass
     .pipe(gulp.dest(distCss));
 });
