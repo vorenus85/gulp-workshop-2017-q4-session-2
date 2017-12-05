@@ -177,7 +177,7 @@ gulp.task('vendor-css', function(){
 });
 ```
 
-## 12. Modify css href in index.html
+## 12. Modify index.html
 
 this line
 ```
