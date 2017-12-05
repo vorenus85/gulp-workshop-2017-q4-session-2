@@ -1,11 +1,15 @@
-"# gulp-workshop-2017-q4-session-2"
+# Css tasks with gulp
+Work to the <b>start</b> folder, the solutions are in the <b>end</b> folder
 
-## 1. Declare the sass plugin in our gulpfile.js
+## 1. Declare the sass plugin 
+
+Type to gulpfile.js
 ```
 var sass = require('gulp-sass');
 ```
 
 ## 2. Install gulp-sass plugin:
+type to terminal:
 ```
 npm install gulp-sass --save-dev
 ```
@@ -14,7 +18,9 @@ npm install gulp-sass --save-dev
 * You can chain multiple tasks together using the ```pipe()``` method.
 * readable stream .pipe( writeable stream ) and so on
 
-## 4. Write our sass task
+## 4. Create sass task
+type to gulpfile.js
+
 ```
 // static variables
 var srcScss = 'scss/style.scss';
@@ -28,17 +34,18 @@ gulp.task('sass', function(){
 ```
 
 ## 5. Gulp-plumber
+
 * Prevent pipe breaking caused by errors
 
-declare gulp-plumber in our gulpfile.js
+declare gulp-plumber in your gulpfile.js
 
 ```var plumber = require('gulp-plumber');```
 
-Install gulp-plumber
+Install gulp-plumber in terminal:
 
 ```gulp gulp-plumber --save-dev```
 
-Give this code our sass task
+Give this code your sass task
 
 ```
 .pipe(plumber(function (err){
@@ -51,19 +58,19 @@ this.emit('end');
 ## 6. Autoprefixer
 * making css cross-browser
 
-Declare autoprefixer in out gulpfile.js
+Declare autoprefixer in your gulpfile.js
 
 ```
 var autoprefixer = require('gulp-autoprefixer');
 ```
 
-Install autoprefixer
+Install autoprefixer in terminal
 
 ```
 npm install gulp-autoprefixer --save-dev
 ```
 
-Give this pipe to our sass task
+Give this .pipe() to our sass task
 
 ```
 .pipe(autoprefixer({
@@ -83,15 +90,15 @@ outputStyle: 'compressed'
 
 ## 8. Concat one file into one file
 
-* Gulp concat can merge one file into one file, or multiply file into one file
+* gulp-concat can merge one file into one file, or multiply files into one file
 
-Declare gulp-comcat in our gulpfile.js
+Declare gulp-concat in your gulpfile.js
 
 ```
 var concat = require('gulp-concat');
 ```
 
-Install gulp-concat
+Install gulp-concat through terminal
 
 ```
 npm install gulp-concat --save-dev
@@ -103,7 +110,7 @@ Make static variables for concatenated filename
 var minCss = 'style.min.css';
 ```
 
-Give pipe into our sass task
+Give .pipe() into your sass task
 
 ```.pipe(concat(minCss))```
 
@@ -111,19 +118,19 @@ Give pipe into our sass task
 
 * Need and useful for debugging
 
-Declare gulp-sourcemaps in our gulpfile.js
+Declare gulp-sourcemaps in your gulpfile.js
 
 ```
 var sourcemaps = require('gulp-sourcemaps');
 ```
 
-Give this pipe where our file content is NOT manipulated
+Give this .pipe() where your file content is NOT manipulated
 
 ```
 .pipe(sourcemaps.init())
 ```
 
-Give this pipe where our file content is FULLY manipulated
+Give this .pipe() where our file content is FULLY manipulated ( before ```gulp.dest()``` )
 
 ```
 .pipe(sourcemaps.write())
@@ -136,7 +143,7 @@ Sourcemaps save separately NOT into min.css
 ```
 
 ## 10. Concat and minify Vendor css
-To reduce out app requests, concat vendor css files into one, also minify and autoprefix them 
+To reduce your app requests, concat vendor css files into one, also minify and autoprefix them 
 
 Declare these static variables
 ```
@@ -146,7 +153,8 @@ var vendorCss = 'css/vendor/*.css';
 var vendorPacksMin = 'vendor.packs.min.css';
 ```
 
-## 11. Write out vendor-css task
+## 11. Write vendor-css task
+type to gulpfile.js
 
 ```
 gulp.task('vendor-css', function(){
@@ -167,4 +175,28 @@ gulp.task('vendor-css', function(){
   .pipe(gulp.dest(distVendorCss));
   
 });
+```
+
+## 12. Modify css href in index.html
+
+this line
+```
+<link rel="stylesheet" href="web/css/style.css">
+```
+
+change to that:
+```$xslt
+<link rel="stylesheet" href="web/css/style.min.css">
+```
+
+remove these lines:
+```$xslt
+<link rel="stylesheet" href="src/css/vendor/font-awesome.min.css">
+<link rel="stylesheet" href="src/css/vendor/owl.carousel.css">
+<link rel="stylesheet" href="src/css/vendor/animate.css">
+```
+
+add this line:
+```$xslt
+<link rel="stylesheet" href="web/css/vendor/vendor.packs.min.css">
 ```
